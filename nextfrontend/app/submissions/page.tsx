@@ -5,9 +5,7 @@ import React, { useEffect, useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast';
 import { useRouter } from "next/navigation";
 
-
 const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : process.env.NEXT_PUBLIC_BASE_URL;
-console.log(baseURL);
 
 const Page = () => {
 	const [submissions, setSubmissions] = useState([]);
@@ -23,12 +21,10 @@ const Page = () => {
 		const loadingToast =  toast.loading('Fetching the data..', { duration: 1000 });
 		try {
 			const result = await axios.get(`${baseURL}/api/getAllSubmissions`);
-			console.log(result);
 			if (result.status !== 200){
 				console.error("error in fetching data", result);
 			}
 			setSubmissions(result.data.data);
-			console.log(submissions);
 			toast.dismiss(loadingToast);
 			toast.success('Data fetched successfully...', { duration: 1000 });
 		} catch (error) {

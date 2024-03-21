@@ -4,6 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
+import UnderDevelopment from "./components/underDevelopment";
 
 const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -27,12 +28,19 @@ export default function Home() {
 
 		const loadingToast =  toast.loading('Submitting the data..', { duration: 500 });
 		e.preventDefault();
+		const base64SourceCode = btoa(sourceCode);
+		const base64Stdin = btoa(stdin);
+		console.log(base64SourceCode, base64Stdin);
+		
+		// trying to convert the source code to base64
 		const data = {
 			username,
 			preferred_language: selectedOption,
-			stdin,
-			source_code: sourceCode,
+			stdin: base64Stdin,
+			source_code: base64SourceCode,
 		};
+
+
 		try {
 			const response = await axios(`${baseURL}/api/submitCodeSnippet`, {
 				method: "POST",
@@ -61,13 +69,18 @@ export default function Home() {
 		}
 	}
 
-  return (
+	return (
 	<>
+		<UnderDevelopment/>
+		<br/>
+		<br/>
 		<div>
 			<Toaster />
-		</div>
+		</div>	
 		<h1>TUF Intern Challange</h1>
-		<button onClick={() => router.push('/submissions')}> Submissions Page </button>
+		<button onClick={() => router.push('/submissions')}>Go to Submissions Page </button>
+		<br/>
+		<br />
 		<form onSubmit={handleClick}>
 			<label>
 				username
