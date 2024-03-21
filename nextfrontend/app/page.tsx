@@ -29,14 +29,14 @@ export default function Home() {
 		const loadingToast =  toast.loading('Submitting the data..', { duration: 500 });
 		e.preventDefault();
 		const base64SourceCode = btoa(sourceCode);
-		const base64Stdin = btoa(stdin);
-		console.log(base64SourceCode, base64Stdin);
+		// const base64Stdin = btoa(stdin);
+		// console.log(base64SourceCode, base64Stdin);
 		
 		// trying to convert the source code to base64
 		const data = {
 			username,
 			preferred_language: selectedOption,
-			stdin: base64Stdin,
+			stdin,
 			source_code: base64SourceCode,
 		};
 

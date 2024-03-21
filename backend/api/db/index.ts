@@ -1,7 +1,6 @@
 import maraidb from 'mariadb';
 import { db_host, db_name, db_password, db_port, db_user, productionENV } from '../config';
 
-console.log(db_host, db_name, db_password, db_port, db_user);
 let connection : maraidb.Pool;
 if(productionENV){
     connection = maraidb.createPool({
