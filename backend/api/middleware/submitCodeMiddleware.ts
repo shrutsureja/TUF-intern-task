@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import jsonResponse from "../utils/JsonResponse";
-import { codeSnippetSubmitSchema } from "../validations/validationSchemas";
+import { codeSnippetSubmitSchema } from "../Functions/submitCodeValidationFunction";
 
 export function submitCodeMiddleware(req : Request, res: Response, next : NextFunction) {
     try {
