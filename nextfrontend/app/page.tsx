@@ -3,7 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : process.env.BASE_URL;
+const baseURL = process.env.NODE_ENV === 'development' ? 'localhost:3001' : process.env.BASE_URL;
 
 export default function Home() {
   const [username, setUsername] = useState("");
@@ -22,7 +22,7 @@ export default function Home() {
       source_code: sourceCode,
     };
     try {
-      const response = await axios(baseURL + "/api/submit", {
+      const response = await axios(`http://${baseURL}/api/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
