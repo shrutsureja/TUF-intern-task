@@ -1,0 +1,21 @@
+t the user_id to username
+        for (let i = 0; i < result.length; i++) {
+            const username = await connection.query('SELECT username FROM users WHERE user_id = ?', [result[i].user_id]);
+            result[i].user_id = username[0].username;
+        }
+        // for every source_code file name convert it to base64
+        for (let i = 0; i < result.length; i++){
+            const file_name = result[i].source_code;
+            const source_code = fs.readFileSync(`./source_code/${file_name}`, 'utf-8');
+            const base64SourceCode = Buffer.from(source_code).toString('base64');
+            result[i].source_code = base64SourceCode;
+        }
+        res.json(jsonResponse(200, result, "Success"));
+    } catch (error) {
+        console.error(error);
+        res.status(500).json(jsonResponse(500, error, "Server Error", true))
+    } finally {
+        connection?.release();
+        console.log(`Response time: ${Date.now() - start}ms`);
+    }
+});

@@ -24,7 +24,21 @@ const Page = () => {
 			if (result.status !== 200){
 				console.error("error in fetching data", result);
 			}
-			setSubmissions(result.data.data);
+			const data = result.data.data;
+			for(let i = 0; i < data.length; i++) {
+				// converting the base64 source code to normal code
+				const source_code = data[i].source_code;
+				const normal_code = Buffer.from(source_code, 'base64').toString('utf-8');
+
+				data[i].source_code = normal_code;
+
+				// Converting the timestamp to a readable format
+				const initialTime = new Date(data[i].timestamp);
+				initialTime.setHours(initialTime.getHours() + 5);
+				initialTime.setMinutes(initialTime.getMinutes() + 30);
+				data[i].timestamp = `${initialTime.toLocaleDateString()} ${initialTime.toLocaleTimeString()}`;
+			}
+			setSubmissions(data	);
 			toast.dismiss(loadingToast);
 			toast.success('Data fetched successfully...', { duration: 1000 });
 		} catch (error) {
@@ -60,7 +74,17 @@ const Page = () => {
 										<td>{submission.user_id}</td>
 										<td>{submission.preferred_language}</td>
 										<td>{submission.stdin}</td>
-										<td>{submission.source_code}</td>
+										<td><div>
+											<pre>{submission.source_code.slice(0, 100)}</pre>
+											<button onClick={() => {
+												const blob = new Blob([submission.source_code], { type: 'text/plain' });
+												const url = URL.createObjectURL(blob);
+												window.open(url);
+											}}>
+												View Source Code
+											</button>
+											</div>
+										</td>
 										<td>{submission.timestamp}</td>
 									</tr>
 								)

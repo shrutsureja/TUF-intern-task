@@ -25,6 +25,10 @@ export default function Home() {
 			toast.error('Please fill all the fields...', { duration: 2000 });
 			return;
 		}
+		if (username.split(" ").length > 1) {
+			toast.error('Username should not contain spaces...', { duration: 2000 });
+			return;
+		}
 
 		const loadingToast =  toast.loading('Submitting the data..', { duration: 500 });
 		e.preventDefault();

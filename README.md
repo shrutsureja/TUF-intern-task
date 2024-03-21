@@ -36,8 +36,9 @@ Please ensure adherence to the deadline and provide all necessary details for ev
 
 - [X] Make a basic version and deploy it.
 - [ ] Make Some basic frontend of loading State while the data is being fetched.
-- [ ] Convert the frontend post request such that all the stdin and source_code data get converted to the BASE64.
-- [ ] Accept the converted data and store it in a file rather than a database and store the file name in the database
+- [X] Convert the frontend post request such that all the stdin and source_code data get converted to the BASE64.
+- [X] Accept the converted data and store it in a file rather than a database and store the file name in the database
+- [ ] Need to take the backup of the files in the mongoDB database 
 - [ ] Add some instructions for the reviewer
 
 ## Routes Required
@@ -53,19 +54,3 @@ Please ensure adherence to the deadline and provide all necessary details for ev
         - code snippet -> in BASE64 formate
     - return's 
         - Ok on submission
-
-
-
-This function can be used to check the time thingie
-```javascript
-// Given datetime string
-const datetimeString = "2024-03-20T12:28:00.000Z";
-
-// Parse the datetime string using the Date object
-const date = new Date(datetimeString);
-
-// Convert to local time zone
-const localTime = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
-
-console.log(localTime.toISOString().slice(0, 19));
-```
