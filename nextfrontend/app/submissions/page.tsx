@@ -73,7 +73,7 @@ const Page = () => {
 										<td>{submission.id}</td>
 										<td>{submission.user_id}</td>
 										<td>{submission.preferred_language}</td>
-										<td>{submission.stdin}</td>
+										<td><pre>{submission.stdin}</pre></td>
 										<td><div>
 											<pre>{submission.source_code.slice(0, 100)}</pre>
 											<button onClick={() => {
