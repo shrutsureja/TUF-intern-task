@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : process.env.NEXT_PUBLIC_BASE_URL;
+console.log(baseURL);
 
 export default function Home() {
   const [username, setUsername] = useState("");
