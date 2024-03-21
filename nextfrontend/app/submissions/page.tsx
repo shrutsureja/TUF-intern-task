@@ -3,7 +3,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-// const baseURL = "http://localhost:3001" || process.env.;
+const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3001' : process.env.BASE_URL;
 
 const Page = () => {
 	const [submissions, setSubmissions] = useState([]);
@@ -12,7 +12,7 @@ const Page = () => {
 	}, [submissions]);
 	async function fetchData() {
 		try {
-			const result = await axios.get('http://localhost:3001/api/submissions');
+			const result = await axios.get(baseURL + '/api/submissions');
 			console.log(result);
 			if (result.status !== 200){
 				console.error("error in fetching data", result);
