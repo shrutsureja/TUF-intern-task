@@ -9,7 +9,9 @@ const port = process.env.PORT;
 app.use(express.json());
 app.use(cors());
 setupRoutes(app);
-
+app.get('/', (req, res) => {
+  res.send('backend is running... ');
+})
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
 });
