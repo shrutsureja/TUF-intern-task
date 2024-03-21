@@ -23,7 +23,7 @@ export default function Home() {
       source_code: sourceCode,
     };
     try {
-      const response = await axios(`${baseURL}/api/submit`, {
+      const response = await axios(`${baseURL}/api/submitCodeSnippet`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

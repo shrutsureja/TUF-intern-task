@@ -5,7 +5,7 @@ import { submitCodeMiddleware } from '../middleware/submitCodeMiddleware';
 const router = Router();
 
 // return all the submissions from the table of code snippets
-router.get('/submissions', async (req, res)=> {
+router.get('/getAllSubmissions', async (req, res)=> {
     const start = Date.now();
     const data = await getAllSubmissions();
     if(data.error) return res.status(data.status).json(data);
@@ -13,7 +13,7 @@ router.get('/submissions', async (req, res)=> {
     console.log(`Response time: ${Date.now() - start}ms`);
 });
 
-router.post('/submit', submitCodeMiddleware, async (req, res) => {
+router.post('/submitCodeSnippet', submitCodeMiddleware, async (req, res) => {
     const start = Date.now();
     const result = await submitCodeSnippet(req.body);
     if(result.error) return res.status(result.status).json(result);

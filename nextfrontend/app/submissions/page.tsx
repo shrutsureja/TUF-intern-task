@@ -13,7 +13,7 @@ const Page = () => {
 	}, [submissions]);
 	async function fetchData() {
 		try {
-			const result = await axios.get(`${baseURL}/api/submissions`);
+			const result = await axios.get(`${baseURL}/api/getAllSubmissions`);
 			console.log(result);
 			if (result.status !== 200){
 				console.error("error in fetching data", result);

@@ -32,9 +32,17 @@ Please ensure adherence to the deadline and provide all necessary details for ev
 
 # my notes
 
+# Task to Do
+
+- [X] Make a basic version and deploy it.
+- [ ] Make Some basic frontend of loading State while the data is being fetched.
+- [ ] Convert the frontend post request such that all the stdin and source_code data get converted to the BASE64.
+- [ ] Accept the converted data and store it in a file rather than a database and store the file name in the database
+- [ ] Add some instructions for the reviewer
+
 ## Routes Required
 
-1. **`GET /api/getCodeSnippetSubmission`**
+1. **`GET /api/getAllSubmissions`**
     - return the data about the - username, preffered language, standard input, code snippet and timestamp
 
 2. **`POST /api/submitCodeSnippet`**
