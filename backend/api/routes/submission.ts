@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { addUser, checkUserExist } from '../Functions/submissionFunction';
 import { submitCodeMiddleware } from '../middleware/submitCodeMiddleware';
-import db, { mongo } from '../db/index'
+import db from '../db/index'
 import jsonResponse from '../utils/JsonResponse';
 import fs from 'fs';
 
@@ -20,14 +20,14 @@ router.get('/getAllSubmissions', async (req, res)=> {
             result[i].user_id = username[0].username;
         }
         // for every source_code file name convert it to base64
-        for (let i = 0; i < result.length; i++){
-            const file_name = result[i].source_code;
-            // what if i want to read only the 1st 100 characters of the file and then convert it to base64
-            const normal_code = fs.readFileSync(`./source_code/${file_name}`, 'utf-8');
-            // const truncated_code = normal_code.slice(0, 100);
-            const base64_code = Buffer.from(normal_code).toString('base64');
-            result[i].source_code = base64_code;    
-        }
+        // for (let i = 0; i < result.length; i++){
+        //     const file_name = result[i].source_code;
+        //     // what if i want to read only the 1st 100 characters of the file and then convert it to base64
+        //     const normal_code = fs.readFileSync(`./${file_name}`, 'utf-8');
+        //     // const truncated_code = normal_code.slice(0, 100);
+        //     const base64_code = Buffer.from(normal_code).toString('base64');
+        //     result[i].source_code = base64_code;    
+        // }
         res.json(jsonResponse(200, result, "Success"));
     } catch (error) {
         console.error(error);
@@ -56,24 +56,9 @@ router.post('/submitCodeSnippet', submitCodeMiddleware, async (req, res) => {
         }      
         connection = await db.getConnection();
         
-        const normal_code = Buffer.from(source_code, 'base64').toString('utf-8');
-        // store the normal code in a file  in the source code folder and store the file name in the database
-        const file_name = `${username}_${Date.now()}.txt`;
-        // fs.writeFileSync(`./source_code/${file_name}`, normal_code);
+        // const normal_code = Buffer.from(source_code, 'base64').toString('utf-8');
         
-        // make a directory if not exists for the source code
-        if (!fs.existsSync('./source_code')) {
-            fs.mkdirSync('./source_code');
-        }
-
-        fs.writeFile(`./source_code/${file_name}`, normal_code, (err) => {
-            if(err) {
-                console.error(err);
-            }
-        });
-
-        
-        await connection.query(`INSERT INTO code_snippet_submissions (user_id, preferred_language, stdin, source_code) VALUES ((SELECT user_id FROM users WHERE username = ?) , ?, ?, ?);`, [username, preferred_language, stdin, file_name]);
+        await connection.query(`INSERT INTO code_snippet_submissions (user_id, preferred_language, stdin, source_code) VALUES ((SELECT user_id FROM users WHERE username = ?) , ?, ?, ?);`, [username, preferred_language, stdin, source_code]);
         res.json(jsonResponse(200, {}, "Success"));
     } catch (error) {
         console.error(error);
