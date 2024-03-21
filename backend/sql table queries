@@ -4,20 +4,16 @@ CREATE TABLE users (
   CONSTRAINT username_format CHECK (username REGEXP '^[^\\s]+$')
 );
 
+CREATE TABLE code_snippet_submissions (   id INTEGER PRIMARY KEY AUTO_INCREMENT,   user_id INTEGER NOT NULL REFERENCES users(user_id),   preferred_language VARCHAR(255) NOT NULL,   stdin TEXT NOT NULL,   source_code TEXT NOT NULL,   timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP );
 
-CREATE TABLE code_snippet_submissions (
-  id INTEGER PRIMARY KEY AUTO_INCREMENT,
-  user_id INTEGER REFERENCES users(user_id),
-  preferred_language VARCHAR(255),
-  stdin TEXT,
-  source_code TEXT,
-  timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-
-ALTER TABLE code_snippet_submissions
-ADD CONSTRAINT language_check CHECK (preferred_language IN ('C++', 'Java', 'JavaScript', 'Python'));
-
+-- CREATE TABLE code_snippet_submissions (
+--   id INTEGER PRIMARY KEY AUTO_INCREMENT,
+--   user_id INTEGER REFERENCES users(user_id),
+--   preferred_language VARCHAR(255),
+--   stdin TEXT,
+--   source_code TEXT,
+--   timestamp DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- );
 
 INSERT INTO users (username)
 VALUES ('username1'), ('username2'), ('username3');

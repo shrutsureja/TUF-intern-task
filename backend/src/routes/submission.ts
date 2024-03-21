@@ -7,13 +7,13 @@ const router = Router();
 // return all the submissions from the table of code snippets
 router.get('/', async (req, res)=> {
     const data = await getAllSubmissions();
+    if(data.error) return res.status(data.status).json(data);
     res.json(data);
 });
 
 router.post('/submit', submitCodeMiddleware, async (req, res) => {
-    const { username, source_code, stdin, preferred_language } = req.body;
-    // call the function to submit the code snippet
-    const result = await submitCodeSnippet({ username, source_code, stdin, preferred_language });
+    const result = await submitCodeSnippet(req.body);
+    if(result.error) return res.status(result.status).json(result);
     res.json(result);
 });
 

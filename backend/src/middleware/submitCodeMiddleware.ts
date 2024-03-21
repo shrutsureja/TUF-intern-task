@@ -4,9 +4,9 @@ import { codeSnippetSubmitSchema } from "../validations/validationSchemas";
 
 export function submitCodeMiddleware(req : Request, res: Response, next : NextFunction) {
     try {
-        const { success } = codeSnippetSubmitSchema.safeParse(req.body);
-        if(!success) {
-            return res.json(jsonResponse(400, {}, "Invalid input zod error", true));
+        const response = codeSnippetSubmitSchema.safeParse(req.body);
+        if(!response.success) {
+            return res.json(jsonResponse(400, response, "Invalid input zod error", true));
         }
         next();
     } catch (error) {
