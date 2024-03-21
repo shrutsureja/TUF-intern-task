@@ -3,7 +3,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
-const baseURL = process.env.NODE_ENV === 'development' ? 'localhost:3001' : process.env.BASE_URL;
+const baseURL = process.env.NODE_ENV === 'development' ? 'localhost:3001' : process.env.NEXT_PUBLIC_BASE_URL;
 console.log(baseURL);
 
 const Page = () => {
