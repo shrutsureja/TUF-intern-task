@@ -5,7 +5,7 @@ import { submitCodeMiddleware } from '../middleware/submitCodeMiddleware';
 const router = Router();
 
 // return all the submissions from the table of code snippets
-router.get('/', async (req, res)=> {
+router.get('/submissions', async (req, res)=> {
     const data = await getAllSubmissions();
     if(data.error) return res.status(data.status).json(data);
     res.json(data);
