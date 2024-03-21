@@ -41,18 +41,7 @@ export async function submitCodeSnippet(data : any){
         }      
 
         connection = await db.getConnection();
-        await connection.query(`INSERT INTO code_snippet_submissions (
-            user_id,
-            preferred_language,
-            stdin,
-            source_code
-            )
-            VALUES (
-                (SELECT user_id FROM users WHERE username = ?),
-                ?,
-            ?,
-            ?
-          );`, [username, preferred_language, stdin,source_code]);
+        await connection.query(`INSERT INTO code_snippet_submissions (user_id, preferred_language, stdin, source_code) VALUES ((SELECT user_id FROM users WHERE username = ?) , ?, ?, ?);`, [username, preferred_language, stdin,source_code]);
         return jsonResponse(200, {}, "Success");
     } catch (error) {
         console.error(error);
