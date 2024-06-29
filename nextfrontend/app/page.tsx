@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import UnderDevelopment from "./components/underDevelopment";
 
@@ -19,6 +19,10 @@ export default function Home() {
 
 	const router = useRouter();
 	
+	useEffect(() => {
+		document.title = "TUF Intern Challange";
+	}, []);
+
 	const handleClick = async (e: { preventDefault: () => void; }) => {
 		// check if the data is empty or not
 		if(username === "" || selectedOption === "" || stdin === "" || sourceCode === "") {

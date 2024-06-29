@@ -11,6 +11,7 @@ const Page = () => {
 	const [submissions, setSubmissions] = useState([]);
 	
 	useEffect(() => {
+		document.title = "Submissions";
 		fetchData();
 	}, []);
 
@@ -49,12 +50,12 @@ const Page = () => {
 	return (
 		<>
 			<div>
-				<Toaster />
+				<Toaster />	
 			</div>
 			<button onClick={fetchData}> Refresh </button>
 			<button onClick={()=> router.push('/')}>Home Page</button>
-			<h1>Submissions</h1>
-				<div>
+			<	h1>Submissions</h1>
+				<div>clear
 					<table>
 						<thead>
 							<tr>
@@ -78,6 +79,7 @@ const Page = () => {
 											<pre>{submission.source_code.slice(0, 100)}</pre>
 											<button onClick={() => {
 												const blob = new Blob([submission.source_code], { type: 'text/plain' });
+												console.log(blob);	
 												const url = URL.createObjectURL(blob);
 												window.open(url);
 											}}>
